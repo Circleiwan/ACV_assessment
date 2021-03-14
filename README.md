@@ -5,7 +5,7 @@ with Artificial Neural Network (ANN) Method
 
 TO DO:
 * Add a CAD file
-* Add an image augmentation program
-* Add an ANN program
+* Add an image augmentation script
+* Add an ANN script
 * Add a circuit design file
-* Add a preprocessing program
+* Add a preprocessing script
