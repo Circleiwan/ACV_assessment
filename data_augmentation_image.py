@@ -1,35 +1,41 @@
-from PIL import Image
-import cv2
-import os
-import random
+from keras.preprocessing.image import ImageDataGenerator
+from skimage import io
 import numpy as np
+import os
+from PIL import Image
 
-def add_noise():
-	#adding noise to the image
-	pass
+load_dir = 'path/to/folder'
+save_dir = 'path/to/folder'
 
-def convert_image_to_HSV(image):
-	#convert image to HSV
-	converted = cv2.cvtColor(image, cv2.COLOR_HSV)
-	return image
+datagen = ImageDataGenerator(
+            rotation_range = 360,
+            width_shift_range = 0.2,
+            height_shift_range = 0.2,
+            shear_range = 0.2,
+            zoom_range = 0.2,
+            horizontal_flip = True,
+            fill_mode = 'reflect')
 
-def load_and_augementation(load_path, save_path, amount):
-	#exponentially increase amount of dataset
-	for _ in range(0, amount):
-		list_of_rotations = [90,180,270]
-		choice = random.choice(list_of_rotations)
-		for image in os.listdir(load_path):
-			file, extension = os.path.splitext(image)
-			if extension == ".jpeg" or extension == ".jpg" or extension == ".png"
-				convert_image_to_HSV(image)
-				rotated_image = image.rotate(choice)
-				rotated_image.save(save_path)
-			else:
-				continue
+dataset = []
+SIZE = 128
 
-def main():
-	load_path = 
-	save_path = 
-	load_and_augementation(load_path, save_path)
+images = os.listdir(load_dir)
+for i, image_name in enumerate(images):
+    if image_name.split('.')[1] == 'jpg' or image_name.split('.')[1] == 'png':
+        image = io.imread(load_dir + image_name)
+        image = Image.fromarray(image, 'RGB')
+        image = image.resize((SIZE,SIZE))
+        dataset.append(np.array(image))
 
-main()
+image_array = np.array(dataset)
+
+i = 0
+for batch in datagen.flow(image_array, batch_size = 16,
+                            save_to_dir = save_dir,
+                            save_prefix = 'aug',
+                            save_format = 'png'):
+    i += 1
+    if i > 20:
+        break
+
+print("Augmentation is done, Resulting {} images".format(i))
