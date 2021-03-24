@@ -6,14 +6,14 @@ def data_augmentation_gas(lower, upper, amount):
   random_list_gas = []
   for _ in range(0,amount):
     number = np.random.uniform(lower,upper)
-    random_list_gas.append(number)
+    random_list_gas.append(round(number, 2))
   return random_list_gas
   
 def data_augmentation_pH(lower, upper, amount):
   random_list_pH = []
   for _ in range(0,amount):
     number = np.random.uniform(lower,upper)
-    random_list_pH.append(number)
+    random_list_pH.append(round(number, 2))
   return random_list_pH
 
 def generate_csv_file(filename, list_data1, list_data2, name1, name2):
@@ -25,7 +25,9 @@ def generate_csv_file(filename, list_data1, list_data2, name1, name2):
 
 def main():
   pH_augmentation = data_augmentation_pH(2.5,3.8,100)
+  pH_augmentation.sort(reverse=True)
   gas_augmentation = data_augmentation_gas(6.0, 8.0,100)
+  gas_augmentation.sort(reverse=True)
   print('List of pH Augmentation\n',pH_augmentation)
   print('Amount = ',len(pH_augmentation))
   print('List of gas Augmentation\n',gas_augmentation)
