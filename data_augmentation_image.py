@@ -1,11 +1,13 @@
+#!/usr/bin/env python
+
 from keras.preprocessing.image import ImageDataGenerator
 from skimage import io
 import numpy as np
 import os
 from PIL import Image
 
-load_dir = 'path/to/folder'
-save_dir = 'path/to/folder'
+load_dir = 'C:\\Users\\orusx\\Documents\\ITS\\TA\\Program\\ACV_assessment\\Gambar\\'
+save_dir = 'C:\\Users\\orusx\\Documents\\ITS\\TA\\Program\\ACV_assessment\\Augmented\\'
 
 datagen = ImageDataGenerator(
             rotation_range = 360,
@@ -35,7 +37,13 @@ for batch in datagen.flow(image_array, batch_size = 16,
                             save_prefix = 'aug',
                             save_format = 'png'):
     i += 1
-    if i > 20:
+    if i > 20: #image that generated
         break
 
-print("Augmentation is done, Resulting {} images".format(i))
+aug = []
+
+for augmented_images in os.listdir(save_dir):
+    aug.append(augmented_images)
+    print("{} is done!".format(augmented_images))
+    
+print("Resulting {} augmented images".format(len(aug)))
