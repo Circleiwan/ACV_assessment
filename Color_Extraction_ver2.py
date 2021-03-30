@@ -1,12 +1,23 @@
+#!/usr/bin/env python
+
 import cv2
 import numpy as np
 import os
 import csv
+from progress.bar import Bar
 
-load_dir = 'C:\\Users\\orusx\\Documents\\ITS\\TA\\Program\\ACV_assessment\\Augmented\\'
+load_dir = 'C:\\Users\\orusx\\Documents\\ITS\\TA\\Program\\ACV_assessment\\Converted color space\\'
+
 H = []
 S = []
 V = []
+
+def total_in_folder(path):
+	a = []
+	for i in os.listdir(path):
+		a.append(i)
+	t = len(a)
+	return t
 
 def average(data):
 	mean = sum(data) / len(data)
@@ -29,4 +40,3 @@ with open('color_extraction.csv', 'w') as f:
 		v = average(V)
 		v = round(v, 2)
 		writer.writerow([h,s,v])
-	#print(H)
