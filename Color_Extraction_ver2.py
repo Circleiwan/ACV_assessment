@@ -4,7 +4,6 @@ import cv2
 import numpy as np
 import os
 import csv
-from progress.bar import Bar
 
 load_dir = 'C:\\Users\\orusx\\Documents\\ITS\\TA\\Program\\ACV_assessment\\Converted color space\\'
 
@@ -25,8 +24,8 @@ def average(data):
 
 with open('color_extraction.csv', 'w') as f:
 	writer = csv.writer(f, lineterminator='\n')
-	writer.writerow(['Hue', 'Saturation', 'Value'])
-	for file_image in os.listdir(load_dir):
+	writer.writerow(['index', 'Hue', 'Saturation', 'Value'])
+	for index, file_image in enumerate(os.listdir(load_dir)):
 		image = cv2.imread(load_dir + file_image)
 		for pixel in image:
 			for a_pixel in pixel:
@@ -39,4 +38,4 @@ with open('color_extraction.csv', 'w') as f:
 		s = round(s, 2)
 		v = average(V)
 		v = round(v, 2)
-		writer.writerow([h,s,v])
+		writer.writerow([index,h,s,v])
