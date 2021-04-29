@@ -1,4 +1,4 @@
-#!!/usr/bin/env python
+#!/usr/bin/env python
 
 import cv2
 import os
@@ -7,6 +7,7 @@ import RPi.GPIO as GPIO
 	
 cTime = 0
 pTime = 0
+i = 0
 GPIO.setmode(GPIO.BCM)
 GPIO.setup(2, GPIO.IN)
 
